@@ -3,7 +3,7 @@ import requests
 import os
 
 # Wczytaj plik .txt jako ramkę danych pandas
-mushroom_species = 'amanita_phalloides'
+mushroom_species = 'macrolepiota_procera'
 df = pd.read_csv(f'data/image_links/{mushroom_species}.txt', delimiter='\t')
 
 # Stwórz folder na zdjęcia, jeśli nie istnieje
@@ -18,13 +18,12 @@ for _, row in df.iterrows():
         try:
             response = requests.get(url)
             with open(
-                f'data/pre_images{mushroom_species}/image_{index}.jpg',
+                f'data/pre_images/{mushroom_species}/image_{index}.jpg',
                 'wb'
             ) as f:
                 f.write(response.content)
                 index += 1
         except requests.exceptions.RequestException as err:
             print(f"Blad pobierania obrazu z {url}: {err}")
-
 
 print("Pobieranie zakończone")
