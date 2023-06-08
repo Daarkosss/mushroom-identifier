@@ -33,10 +33,8 @@ for folder in os.listdir(base_dir):
         for file in train_files:
             shutil.copy(
                 os.path.join(current_dir, file),
-                os.path.join(train_dir, folder)
-            )
+                os.path.join(train_dir, folder))
         for file in val_files:
             shutil.copy(
                 os.path.join(current_dir, file),
-                os.path.join(val_dir, folder)
-            )
+                os.path.join(val_dir, folder))
