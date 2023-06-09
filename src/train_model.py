@@ -17,7 +17,6 @@ num_classes = 10  # Liczba gatunków grzybów
 img_width, img_height = 150, 150
 input_shape = (img_width, img_height, 3)
 
-
 # Ładowanie modelu VGG16 z wytrenowanymi wagami z ImageNet, bez ostatniej warstwy (top)
 base_model = VGG16(
     weights='imagenet',
