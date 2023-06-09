@@ -1,9 +1,10 @@
-from keras.models import Sequential
+from keras.models import Model
 from keras.layers import Conv2D, MaxPooling2D, BatchNormalization
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping
+from keras.applications.vgg16 import VGG16
 import pickle
 
 train_data_dir = 'data/train'
@@ -14,35 +15,36 @@ epochs = 50
 batch_size = 32
 num_classes = 10  # Liczba gatunków grzybów
 img_width, img_height = 150, 150
-
 input_shape = (img_width, img_height, 3)
 
-model = Sequential()
-model.add(Conv2D(32, (3, 3), input_shape=input_shape))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
 
-model.add(Conv2D(64, (3, 3)))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
+# Ładowanie modelu VGG16 z wytrenowanymi wagami z ImageNet, bez ostatniej warstwy (top)
+base_model = VGG16(
+    weights='imagenet',
+    include_top=False,
+    input_shape=input_shape)
 
-model.add(Conv2D(128, (3, 3)))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
+# Dodanie nowych warstw na końcu modelu
+x = base_model.output
+x = Flatten()(x)
+x = Dense(256, activation='relu')(x)  # Można dodać dodatkowe warstwy, jeśli to konieczne
+x = Dropout(0.5)(x)
+predictions = Dense(num_classes, activation='softmax')(x)
 
-model.add(Flatten())
-model.add(Dense(128))
-model.add(Activation('relu'))
-model.add(Dropout(0.5))
-model.add(Dense(num_classes))
-model.add(Activation('softmax'))
+# Nowy model
+model = Model(inputs=base_model.input, outputs=predictions)
 
+# Możemy zamrozić warstwy bazowego modelu (opcjonalne)
+for layer in base_model.layers:
+    layer.trainable = False
+
+# Kompilacja modelu
 model.compile(loss='categorical_crossentropy',
-              optimizer=Adam(learning_rate=0.00005),
+              optimizer='adam',
               metrics=['accuracy'])
+
+
+# Reszta kodu (trenowanie, walidacja) pozostaje taka sama
 
 early_stopping = EarlyStopping(monitor='val_loss', patience=5)
 
@@ -77,7 +79,7 @@ model.fit(
 class_names = train_generator.class_indices
 class_names = {v: k for k, v in class_names.items()}
 
-with open('model/class_names.pkl', 'wb') as file:
+with open('model/class_names_pre.pkl', 'wb') as file:
     pickle.dump(class_names, file)
 
-model.save('model/model.h5')
+model.save('model/model_pre_trained.h5')
