@@ -1,33 +1,35 @@
-from tensorflow.keras.utils import img_to_array, load_img
+import tensorflow as tf
 from keras.models import load_model
 import numpy as np
 import pickle
+import pathlib
 
 
-def predict_mushroom_species(image_path):
-    # Załaduj i przetwórz obraz
-    img_width, img_height = 200, 200
-    image = load_img(image_path, target_size=(img_width, img_height))
-    image = img_to_array(image)
-    image = image / 255.0
-    image = np.expand_dims(image, axis=0)
+def predict_mushroom_species(images_path):
+    testing_files = list(images_path.glob('*.jpg'))
 
-    # Użyj modelu do przewidywania
-    predictions = model.predict(image)
+    for file in testing_files:
+        img_width, img_height = 224, 224
+        image = tf.keras.preprocessing.image.load_img(
+            file,
+            target_size=(img_height, img_width))
 
-    # Wypisz gatunek grzyba
-    for i in range(len(class_names)):
-        class_name = class_names[i]
-        probability = predictions[0][i]
-        print(f'{class_name}, prawdopodobieństwo: {probability:.2f}')
+        image_array = tf.keras.utils.img_to_array(image)
+        image_array = tf.expand_dims(image_array, 0)
+
+        predictions = model.predict(image_array)
+        score = tf.nn.softmax(predictions[0])
+
+        print(f'The {file} most likely belongs to '
+              f'{class_names[np.argmax(score)]} with a '
+              f'{100 * np.max(score):.2f} percent confidence.')
 
 
 if __name__ == '__main__':
-    # Wczytanie modelu
-    model = load_model('model/model.h5')
+    model = load_model('model/Model(ResNet50).h5')
 
-    # Wczytanie słownika z mapowaniem nazw klas
     with open('model/class_names.pkl', 'rb') as file:
         class_names = pickle.load(file)
 
-    predict_mushroom_species('data/test_images/muchomor.jpg')
+    images_path = pathlib.Path("data/test_images")
+    predict_mushroom_species(images_path)
