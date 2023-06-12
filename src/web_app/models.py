@@ -12,7 +12,8 @@ class User(UserMixin, db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User')
     text = db.Column(db.String(500), nullable=False)
     mushroom_id = db.Column(
         db.Integer,

@@ -5,11 +5,10 @@
     <h1>Author: {{ user.username }}</h1>
     <img src="{{ url_for('static', filename=mushroom.image_path) }}" style="width: 600px; height: auto;">
     {% for comment in mushroom.comments %}
-        <p><strong>{{ comment.username }}</strong>: {{ comment.text }}</p>
+        <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</p>
     {% endfor %}
     {% if current_user.is_authenticated %}
         <form method="post">
-            <input type="text" name="username" placeholder="Your name">
             <textarea name="text" placeholder="Your comment"></textarea>
             <button type="submit">Post comment</button>
         </form>

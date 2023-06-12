@@ -71,9 +71,9 @@ def mushroom_detail(mushroom_id):
     mushroom = Mushroom.query.get_or_404(mushroom_id)
     user = User.query.get(mushroom.user_id)
     if request.method == 'POST':
-        username = request.form['username']
         text = request.form['text']
-        new_comment = Comment(username=username, text=text, mushroom=mushroom)
+        print(current_user.id)
+        new_comment = Comment(user_id=current_user.id, text=text, mushroom=mushroom)
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for('mushroom_detail', mushroom_id=mushroom_id))
