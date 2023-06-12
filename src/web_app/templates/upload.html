@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+        {% if current_user.is_authenticated %}
+            <h1>Wrzuć nowego grziba</h1>
+            <form method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Upload>
+            </form>
+        {% endif %}
+        <h1>Dotychczasowe zdobycze</h1>
+        {% for mushroom in mushrooms %}
+            <a href="{{ url_for('mushroom_detail', mushroom_id=mushroom.id) }}">
+                <img src="{{ url_for('static', filename=mushroom.image_path) }}" style="width: 600px; height: auto;">
+            </a>
+        {% endfor %}
+    {% endblock %}
+</body>
+</html>

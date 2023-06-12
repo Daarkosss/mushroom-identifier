@@ -28,7 +28,7 @@ def predict_mushroom_species(images_path):
 if __name__ == '__main__':
     model = load_model('model/Model(ResNet50).h5')
 
-    with open('model/class_names.pkl', 'rb') as file:
+    with open('prediction_models/class_names.pkl', 'rb') as file:
         class_names = pickle.load(file)
 
     images_path = pathlib.Path("data/test_images")
