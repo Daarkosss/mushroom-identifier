@@ -6,6 +6,10 @@ import pathlib
 
 
 def predict_mushroom_species(file):
+    model = load_model('prediction_models/Model(ResNet50).h5')
+    with open('prediction_models/class_names.pkl', 'rb') as class_names_file:
+        class_names = pickle.load(class_names_file)
+
     img_width, img_height = 224, 224
     image = tf.keras.preprocessing.image.load_img(
         file,
@@ -17,7 +21,7 @@ def predict_mushroom_species(file):
     predictions = model.predict(image_array)
     score = tf.nn.softmax(predictions[0])
 
-    species, odds = class_names[np.argmax(score)], np.max(score)
+    species, odds = class_names[np.argmax(score)], np.max(score) * 100
     return species, odds
 
 
@@ -36,10 +40,5 @@ def print_mushroom_species(file, species, odds):
 
 
 if __name__ == '__main__':
-    model = load_model('prediction_models/Model(ResNet50).h5')
-
-    with open('prediction_models/class_names.pkl', 'rb') as file:
-        class_names = pickle.load(file)
-
     images_path = pathlib.Path("data/test_images")
     predict_mushroom_species_from_dir(images_path)
