@@ -5,9 +5,10 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, \
                         login_required, current_user
-from models import db, User, Comment, Mushroom
-import forms
+from src.web_app.models import db, User, Comment, Mushroom
+import src.web_app.forms as forms
 import uuid
+from src.model_training.predict_species import predict_mushroom_species
 
 
 def create_app():
@@ -84,11 +85,16 @@ def upload_file():
     if request.method == 'POST':
         file = request.files['file']
         filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+
+        species, odds = predict_mushroom_species(file_path)
 
         new_mushroom = Mushroom(
             image_path=f'images/{filename}',
-            user_id=current_user.id)
+            user_id=current_user.id,
+            species=species,
+            odds=odds)
         db.session.add(new_mushroom)
         db.session.commit()
         return redirect(url_for('mushroom_detail', mushroom_id=new_mushroom.id))

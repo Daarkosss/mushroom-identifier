@@ -25,4 +25,6 @@ class Mushroom(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image_path = db.Column(db.String(120), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    species = db.Column(db.String(120), nullable=False)
+    odds = db.Column(db.Integer, nullable=False)
     comments = db.relationship('Comment', backref='mushroom', lazy=True)
