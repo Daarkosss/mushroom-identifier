@@ -12,7 +12,7 @@ import uuid
 
 def create_app():
     app = Flask(__name__)
-    app.config['UPLOAD_FOLDER'] = 'src/web_app/static/'
+    app.config['UPLOAD_FOLDER'] = 'src/web_app/static/images/'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
     app.config['SECRET_KEY'] = 'tajny-klucz'
 
@@ -72,7 +72,6 @@ def mushroom_detail(mushroom_id):
     user = User.query.get(mushroom.user_id)
     if request.method == 'POST':
         text = request.form['text']
-        print(current_user.id)
         new_comment = Comment(user_id=current_user.id, text=text, mushroom=mushroom)
         db.session.add(new_comment)
         db.session.commit()
@@ -88,7 +87,7 @@ def upload_file():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         new_mushroom = Mushroom(
-            image_path=filename,
+            image_path=f'images/{filename}',
             user_id=current_user.id)
         db.session.add(new_mushroom)
         db.session.commit()
