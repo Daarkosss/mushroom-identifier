@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 import os
-import src.remove_wrong_images as rwi
+import src.model_training.remove_wrong_images as rwi
 
 # Wczytaj plik .txt jako ramkę danych pandas
 mushroom_species = 'tricholoma_equestre'
