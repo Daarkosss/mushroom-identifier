@@ -3,12 +3,16 @@
 <body>
     {% extends "base.html" %}
     {% block content %}
-        <h1>Dotychczasowe zdobycze</h1>
-        {% for mushroom in mushrooms %}
-            <a href="{{ url_for('mushroom_detail', mushroom_id=mushroom.id) }}">
-                <img src="{{ url_for('static', filename=mushroom.image_path) }}" style="width: 600px; height: auto;">
-            </a>
-        {% endfor %}
+        <div class="mushroom_title">Dotychczasowe zdobycze</div>
+        <div class="mushroom_container">
+            {% for mushroom in mushrooms %}
+            <div class="mushroom_image">
+                <a href="{{ url_for('mushroom_detail', mushroom_id=mushroom.id) }}">
+                    <img src="{{ url_for('static', filename=mushroom.image_path) }}" style="width: 600px; height: auto;">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
     {% endblock %}
 </body>
 </html>

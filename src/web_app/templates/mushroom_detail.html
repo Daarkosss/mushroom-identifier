@@ -3,6 +3,8 @@
 <body>
     <a href="{{ url_for('upload_file') }}">Powrót do strony głównej</a>
     <h1>Author: {{ user.username }}</h1>
+    <h2>Predicted species: {{ mushroom.species }}</h2>
+    <h2>Prediction odds: {{ mushroom.odds|round(2) }} %</h2>
     <img src="{{ url_for('static', filename=mushroom.image_path) }}" style="width: 600px; height: auto;">
     {% for comment in mushroom.comments %}
         <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</p>
