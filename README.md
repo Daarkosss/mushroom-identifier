@@ -1,7 +1,12 @@
 # Mushroom identifier
 
 Web app to recognize mushroom species from images.  
-It will also allow to comment on other people's mushrooms.
+  
+Features:
+- user authentication (registration and login),
+- uploading mushroom images for recognition,
+- saving uploaded photos of mushrooms in the database,
+- commenting on other people's mushrooms.
 
 ## Mushroom species translations
 | Latin                 | Polish              |
