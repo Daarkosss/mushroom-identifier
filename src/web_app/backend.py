@@ -13,7 +13,7 @@ import src.web_app.forms as forms
 def create_app():
     app = Flask(__name__)
     app.config['UPLOAD_FOLDER'] = 'src/web_app/static/images/'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.config['SECRET_KEY'] = 'tajny-klucz'
 
     db.init_app(app)
@@ -111,7 +111,7 @@ def upload_file():
         return jsonify({'redirect': redirect_url})
 
     mushrooms = Mushroom.query.all()
-    return render_template('upload.html', mushrooms=mushrooms)
+    return render_template('history.html', mushrooms=mushrooms)
 
 
 if __name__ == '__main__':

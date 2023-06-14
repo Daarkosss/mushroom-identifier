@@ -26,7 +26,8 @@
                     <a class="navigation-button" href="{{ url_for('upload_file') }}">Go back to home page</a>
                 </div>
             {% endif %}
-        </div>          
+        </div>
+     
         <div class="authentication">
             {% if current_user.is_authenticated %}
                 <p class="welcome">Welcome, {{ current_user.username }}!</p>
@@ -34,14 +35,15 @@
                     <a href="{{ url_for('logout') }}">Logout</a>
                 </div>
             {% else %}
-              <div class="button-auth-group">
-                <a href="{{ url_for('register') }}">Register</a>
-                <a href="{{ url_for('login') }}">Login</a>
-              </div>
+                <div class="button-auth-group">
+                    <a href="{{ url_for('register') }}">Register</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                </div>
             {% endif %}
         </div>
     </div>
     <div class="title">Mushroom identifier</div>
+    
     {% block content %}
     {% endblock content %}
 </body>
@@ -68,6 +70,7 @@
                 }
             });
         });
+
         $('#login-form').on('submit', function(event){
             event.preventDefault();
             var formData = $(this).serialize();
@@ -91,6 +94,7 @@
                 }
             });
         });
+
         $('#register-form').on('submit', function(event){
             event.preventDefault();
             var formData = $(this).serialize();
@@ -114,9 +118,10 @@
                 }
             });
         });
+
         $('#file-input').on('change', function() {
-            var fileName = $(this).val().split('\\').pop(); // Pobierz nazwę pliku bez ścieżki
-            $('#file-name').text(fileName); // Ustaw nazwę pliku w elemencie file-name
+            var fileName = $(this).val().split('\\').pop();
+            $('#file-name').text(fileName);
         });
     });
 </script>

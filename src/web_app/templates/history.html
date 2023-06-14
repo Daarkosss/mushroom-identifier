@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+        <div class="mushroom-container">
+            <div class="mushroom-history-title">
+                Mushroom findings so far
+            </div>
+            {% for mushroom in mushrooms %}
+                <div class="mushroom-image">
+                    <a href="{{ url_for('mushroom_detail', mushroom_id=mushroom.id) }}">
+                        <img src="{{ url_for('static', filename=mushroom.image_path) }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock %}
+</body>
+</html>
