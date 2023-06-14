@@ -1,14 +1,13 @@
 # backend.py
-from flask import Flask, flash, render_template, request, redirect, url_for
-from flask_migrate import Migrate
 import os
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, jsonify, render_template, redirect, url_for, request
+from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, logout_user, current_user
-from src.web_app.models import db, User, Comment, Mushroom
-import src.web_app.forms as forms
+from werkzeug.security import generate_password_hash, check_password_hash
 import uuid
 from src.model_training.predict_species import predict_mushroom_species
-from flask import jsonify
+from src.web_app.models import db, User, Comment, Mushroom
+import src.web_app.forms as forms
 
 
 def create_app():
@@ -27,7 +26,6 @@ app = create_app()
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-# Utwórz folder uploads, jeżeli nie istnieje
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 
@@ -41,7 +39,7 @@ def register():
     form = forms.RegistrationForm()
     if form.validate_on_submit():
         print('XD')
-        hashed_password = generate_password_hash(form.password.data, method='scrypt')
+        hashed_password = generate_password_hash(form.password.data)
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
@@ -78,11 +76,17 @@ def mushroom_detail(mushroom_id):
     user = User.query.get(mushroom.user_id)
     if request.method == 'POST':
         text = request.form['text']
-        new_comment = Comment(user_id=current_user.id, text=text, mushroom=mushroom)
+        new_comment = Comment(
+            user_id=current_user.id,
+            text=text,
+            mushroom=mushroom)
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for('mushroom_detail', mushroom_id=mushroom_id))
-    return render_template('mushroom_detail.html', mushroom=mushroom, user=user)
+    return render_template(
+        'mushroom_detail.html',
+        mushroom=mushroom,
+        user=user)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -108,7 +112,6 @@ def upload_file():
 
     mushrooms = Mushroom.query.all()
     return render_template('upload.html', mushrooms=mushrooms)
-
 
 
 if __name__ == '__main__':

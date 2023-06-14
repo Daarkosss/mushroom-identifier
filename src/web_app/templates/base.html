@@ -9,17 +9,18 @@
     <div id="loading" class="overlay">
         <div class="loader"></div>
     </div>  
-    {% for message in get_flashed_messages() %}
-        <h2>{{ message }}</h2>
-    {% endfor %}
     <div class="header">
         <div>
             {% if current_user.is_authenticated %}
-                <h1>Wrzuć nowego grziba</h1>
+                <h1>Show your mushroom</h1>
                 <form id="upload-form" method=post enctype=multipart/form-data>
-                    <input type=file name=file>
+                    <input type="file" name="file" id="file-input" style="display: none;">
+                    <label for="file-input" class="file-input-label">Select File</label>
+                    <span id="file-name"> No image selected </span>
                     <input type=submit value=Upload>
                 </form>
+            {% elif not request.path == url_for('upload_file') %}
+                <a href="{{ url_for('upload_file') }}">Go back to home page</a>
             {% endif %}
         </div>
         <div>
@@ -104,6 +105,10 @@
                     }
                 }
             });
+        });
+        $('#file-input').on('change', function() {
+            var fileName = $(this).val().split('\\').pop(); // Pobierz nazwę pliku bez ścieżki
+            $('#file-name').text(fileName); // Ustaw nazwę pliku w elemencie file-name
         });
     });
 </script>

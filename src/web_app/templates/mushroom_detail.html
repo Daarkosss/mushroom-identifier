@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <a href="{{ url_for('upload_file') }}">Powrót do strony głównej</a>
+    <a href="{{ url_for('upload_file') }}">Go back to homepage</a>
     <h1>Author: {{ user.username }}</h1>
     <h2>Predicted species: {{ mushroom.species }}</h2>
     <h2>Prediction odds: {{ mushroom.odds|round(2) }} %</h2>
