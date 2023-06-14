@@ -1,14 +1,14 @@
 # backend.py
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, flash, render_template, request, redirect, url_for
 from flask_migrate import Migrate
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, logout_user, \
-                        login_required, current_user
+from flask_login import LoginManager, login_user, logout_user, current_user
 from src.web_app.models import db, User, Comment, Mushroom
 import src.web_app.forms as forms
 import uuid
 from src.model_training.predict_species import predict_mushroom_species
+from flask import jsonify
 
 
 def create_app():
@@ -40,13 +40,15 @@ def load_user(user_id):
 def register():
     form = forms.RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(
-            form.password.data,
-            method='sha256')
+        print('XD')
+        hashed_password = generate_password_hash(form.password.data, method='scrypt')
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('login'))
+        redirect_url = url_for('login')
+        return jsonify({'redirect': redirect_url})
+    elif request.method == 'POST':
+        return jsonify({'error': 'User with given login already exists'}), 400
     return render_template('register.html', title='Register', form=form)
 
 
@@ -57,7 +59,10 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for('upload_file'))
+            redirect_url = url_for('upload_file')
+            return jsonify({'redirect': redirect_url})
+        else:
+            return jsonify({'error': 'Invalid username or password'}), 400
     return render_template('login.html', title='Login', form=form)
 
 
@@ -97,9 +102,13 @@ def upload_file():
             odds=odds)
         db.session.add(new_mushroom)
         db.session.commit()
-        return redirect(url_for('mushroom_detail', mushroom_id=new_mushroom.id))
+
+        redirect_url = url_for('mushroom_detail', mushroom_id=new_mushroom.id)
+        return jsonify({'redirect': redirect_url})
+
     mushrooms = Mushroom.query.all()
     return render_template('upload.html', mushrooms=mushrooms)
+
 
 
 if __name__ == '__main__':

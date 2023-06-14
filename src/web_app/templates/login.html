@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="center-form">
-        <form method="POST">
+        <form id="login-form" method="POST">
             {{ form.hidden_tag() }}
             <div>
                 {{ form.username.label }} {{ form.username(size=20) }}

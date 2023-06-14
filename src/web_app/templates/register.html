@@ -2,16 +2,13 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="center-form">
-        <form method="POST">
+        <form id="register-form" method="POST">
             {{ form.hidden_tag() }}
             <div>
                 {{ form.username.label }} {{ form.username(size=20) }}
             </div>
             <div>
                 {{ form.password.label }} {{ form.password(size=20) }}
-            </div>
-            <div>
-                {{ form.confirm_password.label }} {{ form.confirm_password(size=20) }}
             </div>
             {{ form.submit() }}
         </form>
