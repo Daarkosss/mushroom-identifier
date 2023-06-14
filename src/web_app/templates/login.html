@@ -2,15 +2,15 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="center-form">
-        <form id="login-form" method="POST">
+        <form id="login-form" class="form" method="POST">
             {{ form.hidden_tag() }}
-            <div>
-                {{ form.username.label }} {{ form.username(size=20) }}
-            </div>
-            <div>
-                {{ form.password.label }} {{ form.password(size=20) }}
-            </div>
-            {{ form.submit() }}
+        <div>
+            {{ form.username.label(class="form-label") }} {{ form.username(class="form-input") }}
+        </div>
+        <div>
+            {{ form.password.label(class="form-label") }} {{ form.password(class="form-input") }}
+        </div>
+        {{ form.submit(class="form-button") }}
         </form>
     </div>
 {% endblock content %}

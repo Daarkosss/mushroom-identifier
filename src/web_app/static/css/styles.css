@@ -1,9 +1,134 @@
+body {
+    background-image: linear-gradient(to right, #16af68, #078565);
+}
+
 .title {
-    font-size: 40px;
+    font-family: sans-serif;
+    color: #0ce73c;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 60px;
     font-weight: bold;
     text-align: center;
-    height: 100px
+    height: 20vh
 }
+
+.welcome {
+    font-family: sans-serif;
+    color: #000000;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.authentication {
+    border: 1px solid #12631f;
+    border-radius: 10px;
+    background-color: #c1fabc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2%;
+    margin-right: 3%;
+    padding: 10px;
+}
+  
+.authentication p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+  
+.authentication a {
+    width: 80%;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #01cc2d;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+  
+.authentication a:hover {
+    background-color: #03643c;
+}
+
+.navigation-button {
+    display: inline-block;
+    padding: 10px 30px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #01cc2d;
+    color: #fff;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-auth-group {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    align-items: center;
+  }
+  
+  .button-auth-group a {
+    padding: 10px;
+  }
+  
+
+.center-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+.form {
+    width: 20vw;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.form-input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.form-label {
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.form-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #01cc2d;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background-color: #03643c;
+}  
 
 .header {
     height: 100px;
@@ -19,13 +144,85 @@
     height: 400px;
 }
 
-.mushroom_title {
-    font-size: 30px;
+.upload {
     text-align: center;
-    height: 50px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 20px;
+}
+  
+.upload h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.padding-container {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #c1fabc;
+    display: inline-block; /* zmień z 'block' na 'inline-block' */
+}
+
+  
+.upload form {
+    padding-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #c1fabc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+  
+.upload .file-input-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #01cc2d;
+    color: #fff;
+    border-radius: 10px;;
+    cursor: pointer;
+}
+  
+  .upload #file-name {
+    margin-top: 10px;
+    font-size: 16px;
+}
+  
+.upload input[type="submit"] {
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #01cc2d;
+    color: #fff;
+    border: none;
+    border-radius: 10px;;
+    cursor: pointer;
+}
+  
+.upload input[type="submit"]:hover {
+    background-color: #019722;
+}
+  
+
+.mushroom_history_title {
+    font-family: sans-serif;
+    color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    height: 60px;
 }
 
 .mushroom_container {
+    display: inline-block;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #12631f;
+    border-radius: 10px;;
+    background-color: #c1fabc;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,15 +230,13 @@
 }
 
 .mushroom_image {
-    width: 600px;
-    height: auto;
+    max-width: 80vw;
     margin-bottom: 20px;
 }
 
-/* Style for the loader */
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #17d430; /* Blue */
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #17d430;
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -52,7 +247,6 @@
     transform: translate(-50%, -50%);
 }
 
-/* Style for the overlay */
 .overlay {
     display: none;
     position: fixed;
@@ -65,7 +259,6 @@
     background-color: rgba(0,0,0,0.5);
     z-index: 2;
 }
-
   
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -73,9 +266,77 @@
 }
 
 .file-input-label {
-    background-color: #3498db;
-    color: #fff;
+    background-color: #eff3f7;
+    color: #06502d;
     padding: 10px 15px;
     cursor: pointer;
-    border-radius: 4px;
-  }
+    border-radius: 10px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+  
+.mushroom-detail {
+    width: 40%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #12631f;
+    border-radius: 10px;
+    background-color: #c1fabc;
+    text-align: center;
+    font-family: sans-serif;
+}
+  
+.mushroom-detail h1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+  
+.mushroom-detail h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+  
+.mushroom-detail img {
+    display: block;
+    margin: 0 auto;
+    max-height: 60vh;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+  
+.mushroom-detail p {
+    text-align: left;
+    margin-bottom: 5px;
+}
+  
+.mushroom-detail textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+  
+.mushroom-detail button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #01cc2d;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+  
+.mushroom-detail button:hover {
+    background-color: #048821;
+}
+  
+  
+  

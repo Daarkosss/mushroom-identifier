@@ -3,8 +3,8 @@
 <body>
     {% extends "base.html" %}
     {% block content %}
-        <div class="mushroom_title">Mushroom findings so far</div>
         <div class="mushroom_container">
+            <div class="mushroom_history_title">Mushroom findings so far</div>
             {% for mushroom in mushrooms %}
             <div class="mushroom_image">
                 <a href="{{ url_for('mushroom_detail', mushroom_id=mushroom.id) }}">

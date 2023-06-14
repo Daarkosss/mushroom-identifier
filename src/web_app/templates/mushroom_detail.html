@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
 <body>
-    <a href="{{ url_for('upload_file') }}">Go back to homepage</a>
-    <h1>Author: {{ user.username }}</h1>
-    <h2>Predicted species: {{ mushroom.species }}</h2>
-    <h2>Prediction odds: {{ mushroom.odds|round(2) }} %</h2>
-    <img src="{{ url_for('static', filename=mushroom.image_path) }}" style="width: 600px; height: auto;">
-    {% for comment in mushroom.comments %}
-        <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</p>
-    {% endfor %}
-    {% if current_user.is_authenticated %}
-        <form method="post">
-            <textarea name="text" placeholder="Your comment"></textarea>
-            <button type="submit">Post comment</button>
-        </form>
-    {% endif %}
+    <div class="padding-container">
+        <a class="navigation-button" href="{{ url_for('upload_file') }}">Go back to home page</a>
+    </div>
+    <div class="center">
+        <div class="mushroom-detail">
+            <h1>Author: {{ user.username }}</h1>
+            <h2>Predicted species: {{mushroom.species.replace('_', ' ').capitalize() }}</h2>
+            <h2>Prediction chance: {{ mushroom.odds|round(2) }}%</h2>
+            <img src="{{ url_for('static', filename=mushroom.image_path) }}">
+            {% for comment in mushroom.comments %}
+              <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</p>
+            {% endfor %}
+            {% if current_user.is_authenticated %}
+              <form method="post">
+                <textarea name="text" placeholder="Your comment"></textarea>
+                <button type="submit">Post comment</button>
+              </form>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
