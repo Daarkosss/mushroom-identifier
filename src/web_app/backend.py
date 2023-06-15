@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from src.model_training.predict_species import predict_mushroom_species
 from src.web_app.models import db, User, Comment, Mushroom
 import src.web_app.forms as forms
-from src.web_app.consts import mushroom_species
+from src.web_app.mushroom_table import mushroom_species
 
 
 def create_app():
