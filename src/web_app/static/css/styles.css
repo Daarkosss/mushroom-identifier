@@ -131,10 +131,12 @@ body {
 }  
 
 .header {
-    height: 100px;
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    height: 100px;
 }
 
 .center-form {
