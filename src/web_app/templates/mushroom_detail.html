@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
 <body>
-    <div class="padding-container">
-        <a class="navigation-button" href="{{ url_for('upload_file') }}">Go back to home page</a>
-    </div>
+    {% extends "base.html" %}
+    {% block content %}
     <div class="center">
         <div class="mushroom-detail">
             <h1>Author: {{ user.username }}</h1>
@@ -27,5 +23,6 @@
             {% endif %}
         </div>
     </div>
+    {% endblock content %}
 </body>
 </html>
