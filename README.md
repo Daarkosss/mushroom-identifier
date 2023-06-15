@@ -20,5 +20,5 @@ Features:
 | leccinum scabrum      | koźlarz babka       |
 | macrolepiota procera  | czubajka kania      |
 | suillus luteus        | maślak zwyczajny    |
-| tricholoma equestre   | gąska zielona       |
+| tricholoma equestre   | gąska zielonka      |
 
