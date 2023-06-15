@@ -7,7 +7,7 @@ def validate_image(image_path):
         img = Image.open(image_path)
         img.verify()
     except (IOError, SyntaxError):
-        print('Uszkodzony plik:', image_path)
+        print('Damaged file:', image_path)
         os.remove(image_path)
         return False
     return True

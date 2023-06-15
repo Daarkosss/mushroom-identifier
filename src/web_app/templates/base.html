@@ -12,23 +12,22 @@
     </div>  
     <div class="header">
         <div class="upload">
-            {% if current_user.is_authenticated and request.path == url_for('mushroom_history')%}
+            {% if current_user.is_authenticated and request.path == url_for('homepage')%}
                 <div class="padding-container">
                     <h1>Upload your mushroom</h1>
                     <form id="upload-form" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file" id="file-input" style="display: none;">
+                        <input type="file" name="file" id="file-input" style="display: none" accept="image/*">
                         <label for="file-input" class="file-input-label">Select File</label>
                         <span id="file-name">No image selected</span>
                         <input type="submit" value="Upload">
                     </form>
                 </div>
-            {% elif not request.path == url_for('mushroom_history') %}
+            {% elif not request.path == url_for('homepage') %}
                 <div class="padding-container">
-                    <a class="navigation-button" href="{{ url_for('mushroom_history') }}">Go back to home page</a>
+                    <a class="navigation-button" href="{{ url_for('homepage') }}">Go back to home page</a>
                 </div>
             {% endif %}
         </div>
-     
         <div class="authentication">
             {% if current_user.is_authenticated %}
                 <p class="welcome">Welcome, {{ current_user.username }}!</p>
@@ -55,12 +54,13 @@
             var formData = new FormData(this);
             $('#loading').show();
             $.ajax({
-                url: '/',
+                url: '/upload',
                 data: formData,
                 type: 'POST',
                 contentType: false,
                 processData: false,
                 success: function(response){
+                    console.log('success')
                     $('#loading').hide();
                     if (response.redirect) {
                         window.location.href = response.redirect;
@@ -68,6 +68,9 @@
                 },
                 error: function(response){
                     $('#loading').hide();
+                    if (response.responseJSON.error) {
+                        alert(response.responseJSON.error);
+                    }
                 }
             });
         });

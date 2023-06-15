@@ -1,5 +1,4 @@
 # Imports needed
-import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.applications.resnet50 import ResNet50
@@ -8,7 +7,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 import pathlib
-import matplotlib.pyplot as plt
 
 
 tf.config.optimizer.set_jit(False)
@@ -71,27 +69,39 @@ model.add(Dense(num_classes))
 
 model.layers[0].trainable = False
 
-model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(
-                  from_logits=True),
-              metrics=['accuracy'])
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
+    loss=tf.keras.losses.SparseCategoricalCrossentropy(
+        from_logits=True),
+    metrics=['accuracy'])
 
 model.summary()
 
-
-checkpoint = ModelCheckpoint("Model(ResNet50).h5", monitor='val_accuracy',
-                             verbose=1, save_best_only=True,
-                             save_weights_only=False, mode='auto',
-                             save_freq="epoch")
-early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=40,
-                      verbose=1, mode='auto')
-reduce_lr = ReduceLROnPlateau(monitor='val_accuracy', factor=0.1,
-                              mode='max', cooldown=2, patience=2, min_lr=0)
+checkpoint = ModelCheckpoint(
+    "model_resnet50.h5",
+    monitor='val_accuracy',
+    verbose=1,
+    save_best_only=True,
+    save_weights_only=False,
+    mode='auto',
+    save_freq="epoch")
+early = EarlyStopping(
+    monitor='val_accuracy',
+    min_delta=0,
+    patience=40,
+    verbose=1,
+    mode='auto')
+reduce_lr = ReduceLROnPlateau(
+    monitor='val_accuracy',
+    factor=0.1,
+    mode='max',
+    cooldown=2,
+    patience=2,
+    min_lr=0)
 
 epochs = 30
 history = model.fit(
     train_ds,
     validation_data=val_ds,
     epochs=epochs,
-    callbacks=[checkpoint, early, reduce_lr],
-)
+    callbacks=[checkpoint, early, reduce_lr])

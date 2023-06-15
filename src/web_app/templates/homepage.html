@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+        <div class="mushroom-container">
+            <div class="mushroom-history-title">
+                Mushroom findings so far
+            </div>
+            {% for mushroom in mushrooms %}
+                <div class="mushroom-image">
+                    <a href="{{ url_for('mushroom_detail', mushroom_id=mushroom.id) }}">
+                        <img src="{{ url_for('static', filename=mushroom.image_path) }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <table>
+            <h1 class="table-title">Species translations and edibility</h1>
+            <tr>
+                {% for header in mushroom_species[0] %}
+                    <th>{{ header.capitalize() }}</th>
+                {% endfor %}
+            </tr>
+            {% for row in mushroom_species[1:] %}
+                <tr>
+                    {% for cell in row %}
+                        <td>{{ cell.capitalize() }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <div>
+        <div class="warning-text">
+            <p>The predictive model has about 80% accuracy in recognizing mushroom species.</p>
+            <p>Using this model, you cannot be sure that it is correct, even if it shows a high probability.</p>
+            <p>The model is just to help confirm that this is the species you had in mind.</p>
+            <p>In particular, do not eat mushrooms that you are completely unfamiliar with.</p>
+            <p>When in doubt, always consult a knowledgeable expert before consuming any mushroom!</p>
+        </div>
+    {% endblock %}
+</body>
+</html>

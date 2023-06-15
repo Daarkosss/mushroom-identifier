@@ -6,8 +6,8 @@ import pathlib
 
 
 def predict_mushroom_species(file):
-    model = load_model('prediction_models/Model(ResNet50).h5')
-    with open('prediction_models/class_names.pkl', 'rb') as class_names_file:
+    model = load_model('prediction_model/model_resnet50.h5')
+    with open('prediction_model/class_names.pkl', 'rb') as class_names_file:
         class_names = pickle.load(class_names_file)
 
     img_width, img_height = 224, 224

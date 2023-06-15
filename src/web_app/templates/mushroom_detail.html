@@ -8,7 +8,6 @@
             <h1>Author: {{ user.username }}</h1>
             <h2>Predicted species: {{mushroom.species.replace('_', ' ').capitalize() }}</h2>
             <h2>Prediction chance: {{ mushroom.odds|round(2) }}%</h2>
-
             <img src="{{ url_for('static', filename=mushroom.image_path) }}">
 
             {% for comment in mushroom.comments %}
