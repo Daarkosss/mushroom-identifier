@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Mushroom identifier</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -11,7 +12,7 @@
     </div>  
     <div class="header">
         <div class="upload">
-            {% if current_user.is_authenticated %}
+            {% if current_user.is_authenticated and request.path == url_for('mushroom_history')%}
                 <div class="padding-container">
                     <h1>Upload your mushroom</h1>
                     <form id="upload-form" method="post" enctype="multipart/form-data">
@@ -21,9 +22,9 @@
                         <input type="submit" value="Upload">
                     </form>
                 </div>
-            {% elif not request.path == url_for('upload_file') %}
+            {% elif not request.path == url_for('mushroom_history') %}
                 <div class="padding-container">
-                    <a class="navigation-button" href="{{ url_for('upload_file') }}">Go back to home page</a>
+                    <a class="navigation-button" href="{{ url_for('mushroom_history') }}">Go back to home page</a>
                 </div>
             {% endif %}
         </div>
