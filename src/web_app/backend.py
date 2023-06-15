@@ -1,13 +1,14 @@
-# backend.py
 import os
-from flask import Flask, jsonify, render_template, redirect, url_for, request
+import uuid
+from flask import (Flask, jsonify, render_template, redirect, url_for,
+                   request, send_from_directory)
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-import uuid
 from src.model_training.predict_species import predict_mushroom_species
 from src.web_app.models import db, User, Comment, Mushroom
 import src.web_app.forms as forms
+from src.web_app.consts import mushroom_species
 
 
 def create_app():
@@ -34,6 +35,14 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, 'static'),
+        'favicon.ico',
+        mimetype='image/vnd.microsoft.icon')
+
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = forms.RegistrationForm()
@@ -57,7 +66,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            redirect_url = url_for('upload_file')
+            redirect_url = url_for('mushroom_history')
             return jsonify({'redirect': redirect_url})
         else:
             return jsonify({'error': 'Invalid username or password'}), 400
@@ -67,7 +76,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('upload_file'))
+    return redirect(url_for('mushroom_history'))
 
 
 @app.route('/mushroom/<int:mushroom_id>', methods=['GET', 'POST'])
@@ -90,7 +99,7 @@ def mushroom_detail(mushroom_id):
 
 
 @app.route('/', methods=['GET', 'POST'])
-def upload_file():
+def mushroom_history():
     if request.method == 'POST':
         file = request.files['file']
         filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
@@ -111,7 +120,10 @@ def upload_file():
         return jsonify({'redirect': redirect_url})
 
     mushrooms = Mushroom.query.all()
-    return render_template('history.html', mushrooms=mushrooms)
+    return render_template(
+        'history.html',
+        mushrooms=mushrooms,
+        mushroom_species=mushroom_species)
 
 
 if __name__ == '__main__':
