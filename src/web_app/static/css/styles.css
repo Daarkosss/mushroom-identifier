@@ -8,7 +8,7 @@ body {
     font-size: 4vw;
     font-weight: bold;
     text-align: center;
-    color: #01cc2d;
+    color: #7bff00;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
 }
@@ -355,7 +355,7 @@ body {
     font-family: sans-serif;
     background-color: #c1fabc;
     border-radius: 10px;
-    color: #3D550C;
+    color: #000000;
     padding: 20px;
 }
 
@@ -364,7 +364,7 @@ table {
     width: 50%;
     background-color: #c1fabc;
     font-family: Arial, sans-serif;
-    color: #3D550C;
+    color: #000000;
     border-collapse: collapse;
 }
 

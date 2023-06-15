@@ -32,7 +32,10 @@ def register():
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        redirect_url = url_for('login')
+
+        login_user(new_user)
+
+        redirect_url = url_for('homepage')
         return jsonify({'redirect': redirect_url})
     elif request.method == 'POST':
         return jsonify({'error': 'User with given login already exists'}), 400

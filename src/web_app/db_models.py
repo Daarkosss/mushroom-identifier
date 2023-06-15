@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 from src.web_app.app_config import db
+import datetime
 
 
 class User(UserMixin, db.Model):
@@ -17,6 +18,7 @@ class Comment(db.Model):
         db.Integer,
         db.ForeignKey('mushroom.id'),
         nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
 
 
 class Mushroom(db.Model):

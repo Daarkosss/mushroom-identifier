@@ -11,9 +11,12 @@
             <img src="{{ url_for('static', filename=mushroom.image_path) }}">
 
             {% for comment in mushroom.comments %}
-                <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</p>
+                <p>
+                    {{ comment.timestamp.strftime('%Y-%m-%d %H:%M') }}
+                    <strong>{{ comment.user.username }}</strong>: 
+                    {{ comment.text }}
+                </p>
             {% endfor %}
-
             {% if current_user.is_authenticated %}
                 <form method="post">
                     <textarea name="text" placeholder="Your comment"></textarea>
