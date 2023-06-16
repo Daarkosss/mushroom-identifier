@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 import os
-import src.model_training.remove_wrong_images as rwi
+from .remove_wrong_images import validate_image
 
 
 def download_image(species, row, index):
@@ -12,7 +12,7 @@ def download_image(species, row, index):
             image_path = f'data/pre_images/{species}/image_{index}.jpg'
             with open(image_path, 'wb') as f:
                 f.write(response.content)
-                if rwi.validate_image(image_path):
+                if validate_image(image_path):
                     index += 1
         except requests.exceptions.RequestException as err:
             print(f"Error while downloading image from {url}: {err}")

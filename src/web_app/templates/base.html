@@ -3,8 +3,9 @@
 <head>
     <title>Mushroom identifier</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/base.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% block head %}{% endblock head %}
 </head>
 <body>
     <div id="loading" class="overlay">
@@ -28,7 +29,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="authentication">
+        <div class="auth">
             {% if current_user.is_authenticated %}
                 <p class="welcome">Welcome, {{ current_user.username }}!</p>
                 <div class="button-auth-group">
@@ -43,16 +44,14 @@
         </div>
     </div>
     <div class="title">Mushroom identifier</div>
-    
-    {% block content %}
-    {% endblock content %}
+    {% block content %}{% endblock content %}
 </body>
 <script>
     $(document).ready(function(){
         $('#upload-form').on('submit', function(event){
             event.preventDefault();
             var formData = new FormData(this);
-            $('#loading').show();
+            $('#loading').addClass('active')
             $.ajax({
                 url: '/upload',
                 data: formData,
@@ -61,13 +60,13 @@
                 processData: false,
                 success: function(response){
                     console.log('success')
-                    $('#loading').hide();
+                    $('#loading').removeClass('active')
                     if (response.redirect) {
                         window.location.href = response.redirect;
                     }
                 },
                 error: function(response){
-                    $('#loading').hide();
+                    $('#loading').removeClass('active')
                     if (response.responseJSON.error) {
                         alert(response.responseJSON.error);
                     }

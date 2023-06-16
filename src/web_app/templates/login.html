@@ -1,5 +1,7 @@
-<!-- login.html -->
 {% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/forms.css') }}">
+{% endblock head %}
 {% block content %}
     <div class="center-form">
         <form id="login-form" class="form" method="POST">

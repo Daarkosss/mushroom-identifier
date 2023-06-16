@@ -1,0 +1,75 @@
+.mushroom-history-title {
+    color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    height: 60px;
+}
+
+.mushroom-container {
+    display: inline-block;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 100px;
+    border: 1px solid #12631f;
+    border-radius: 10px;;
+    background-color: #c1fabc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mushroom-image {
+    margin-bottom: 20px;
+}
+
+.mushroom-image img {
+    width: 30vw;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.table-title {
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    text-align: center;
+    background-color: #c1fabc;
+    border-radius: 10px;
+    color: #000000;
+    padding: 20px;
+}
+
+table {
+    margin: auto;
+    width: 50%;
+    background-color: #c1fabc;
+    color: #000000;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #3D550C;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background-color: #12631f;
+    color: white;
+}
+
+.warning-text {
+    margin-top: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #c1fabc;
+    border-radius: 10px;
+    color: #c90c0c;
+    padding: 20px;
+}

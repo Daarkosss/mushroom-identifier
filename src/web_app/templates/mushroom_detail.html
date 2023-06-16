@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html>
-<body>
-    {% extends "base.html" %}
-    {% block content %}
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/mushroom_detail.css') }}">
+{% endblock head %}
+{% block content %}
     <div class="center">
         <div class="mushroom-detail">
             <h1>Author: {{ user.username }}</h1>
@@ -25,6 +25,4 @@
             {% endif %}
         </div>
     </div>
-    {% endblock content %}
-</body>
-</html>
+{% endblock content %}

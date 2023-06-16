@@ -4,11 +4,11 @@ from flask import (jsonify, render_template, redirect, url_for,
                    request, send_from_directory)
 from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from src.model_training.predict_species import predict_mushroom_species
-from src.web_app.db_models import User, Comment, Mushroom
-import src.web_app.forms as forms
-from src.web_app.mushroom_table import mushroom_species
-from src.web_app.app_config import app, db, login_manager
+from ..model_training.predict_species import predict_mushroom_species
+from .db_models import User, Comment, Mushroom
+from .forms import RegistrationForm, LoginForm
+from .mushroom_table import mushroom_species
+from .app_config import app, db, login_manager
 
 
 @login_manager.user_loader
@@ -26,7 +26,7 @@ def favicon():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    form = forms.RegistrationForm()
+    form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data)
         new_user = User(username=form.username.data, password=hashed_password)
@@ -44,7 +44,7 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    form = forms.LoginForm()
+    form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
