@@ -22,7 +22,7 @@ Features:
 | suillus luteus        | maślak zwyczajny    |
 | tricholoma equestre   | gąska zielonka      |
 
-## Resources:
+## Citations:
 1. Mushroom images
     - GBIF.org (4 June 2023) GBIF Occurrence Download https://doi.org/10.15468/dl.g7rqm9
     - GBIF.org (4 June 2023) GBIF Occurrence Download https://doi.org/10.15468/dl.bdhmbp
