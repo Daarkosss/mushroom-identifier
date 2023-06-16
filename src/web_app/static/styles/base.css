@@ -52,7 +52,7 @@ body {
 }
   
 .auth a:hover {
-    background-color: #03643c;
+    background-color: #019722;
 }
 
 .navigation-button {
@@ -67,6 +67,10 @@ body {
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
+}
+
+.navigation-button:hover {
+    background-color: #019722;
 }
 
 .button-auth-group {
