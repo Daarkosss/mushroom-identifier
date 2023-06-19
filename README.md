@@ -8,6 +8,15 @@ Features:
 - saving uploaded photos of mushrooms in the database,
 - commenting on other people's mushrooms.
 
+## How to run it?
+Using the `environment.yml` file, create an environment with all necessary dependencies.  
+Then in the main path (in the mushroom_identifier folder) run the application in the console:
+```
+python -m src.web_app.app
+```
+
+`-m` is necessary to run it properly due to relative imports.
+
 ## Mushroom species translations
 | Latin                 | Polish              |
 |-----------------------|---------------------|
