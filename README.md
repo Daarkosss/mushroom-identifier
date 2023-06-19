@@ -15,7 +15,7 @@ Then in the main path (in the mushroom_identifier folder) run the application in
 python -m src.web_app.app
 ```
 
-`-m` is necessary to run it properly due to relative imports.
+`-m` is necessary to run it as script due to relative imports.
 
 ## Mushroom species translations
 | Latin                 | Polish              |
