@@ -47,7 +47,7 @@ def split_data(path_to_dataset):
 
 def create_callbacks():
     checkpoint = ModelCheckpoint(
-        'model_resnet50_2.h5',
+        'prediction_model/model_resnet50.h5',
         monitor='val_accuracy',
         verbose=1,
         save_best_only=True,
@@ -115,10 +115,8 @@ def train_model(path_to_dataset):
 
     class_names = get_class_names(path_to_dataset)
     save_class_names_to_json(class_names)
-    print(class_names)
-    num_classes = len(class_names)
 
-    model = create_model_from_resnet(num_classes)
+    model = create_model_from_resnet(len(class_names))
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(
