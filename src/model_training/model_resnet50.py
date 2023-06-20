@@ -100,7 +100,7 @@ def get_class_names(path_to_dataset):
 def save_class_names_to_json(class_names):
     class_names_dict = {i: name for i, name in enumerate(class_names)}
 
-    with open('prediction_model/class_names.json', 'wb') as f:
+    with open('prediction_model/class_names.json', 'w') as f:
         json.dump(class_names_dict, f)
 
 

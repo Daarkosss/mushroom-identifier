@@ -8,7 +8,7 @@ import pathlib
 def predict_mushroom_species(file):
     model = load_model('prediction_model/model_resnet50.h5')
 
-    with open('prediction_model/class_names.json', 'rb') as class_names_file:
+    with open('prediction_model/class_names.json', 'r') as class_names_file:
         class_names = json.load(class_names_file)
     class_names = {int(k): v for k, v in class_names.items()}
     print(class_names)
