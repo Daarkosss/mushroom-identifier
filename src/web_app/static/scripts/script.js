@@ -10,7 +10,6 @@ $(document).ready(function(){
             contentType: false,
             processData: false,
             success: function(response){
-                console.log('success')
                 $('#loading').removeClass('active')
                 if (response.redirect) {
                     window.location.href = response.redirect;
